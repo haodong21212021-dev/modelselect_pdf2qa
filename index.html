@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>《崩坏3·后崩坏书》同人系列长篇</title>
+    <title>《崩坏3·后崩坏书》同人系列</title>
     <style>
         :root {
             --bg-color: #0b0d14;
@@ -11,7 +11,7 @@
             --text-color: #e2e8f0;
             --accent-purple: #9d4edd;
             --accent-blue: #00b4d8;
-            --accent-cyan: #48cae4;
+            --accent-red: #ff4d6d;
             --border-color: #262b3d;
         }
         body {
@@ -67,7 +67,7 @@
             color: #fff;
             transform: translateY(-2px);
         }
-        .tab-btn.active.purple {
+        .tab-btn.active {
             background: linear-gradient(135deg, var(--accent-purple), #7b2cbf);
             color: #fff;
             border-color: transparent;
@@ -75,15 +75,11 @@
         }
         .tab-btn.active.blue {
             background: linear-gradient(135deg, var(--accent-blue), #0077b6);
-            color: #fff;
-            border-color: transparent;
             box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
         }
-        .tab-btn.active.cyan {
-            background: linear-gradient(135deg, #0096c7, #48cae4);
-            color: #fff;
-            border-color: transparent;
-            box-shadow: 0 4px 15px rgba(72, 202, 228, 0.4);
+        .tab-btn.active.red {
+            background: linear-gradient(135deg, var(--accent-red), #c9184a);
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
         }
         .content-card {
             background: var(--card-bg);
@@ -121,14 +117,14 @@
 <body>
     <div class="container">
         <header>
-            <h1>《崩坏3·后崩坏书》同人系列长篇</h1>
+            <h1>《崩坏3·后崩坏书》同人系列</h1>
             <div class="subtitle">男主：黑人德克（BIGDICK） | 极品女武神肉体沦陷全纪实</div>
         </header>
 
         <div class="nav-tabs">
             <button class="tab-btn" id="btn-mei" onclick="switchTab('mei')">第一篇：雷电芽衣篇（约2.5万字）</button>
             <button class="tab-btn" id="btn-bronya" onclick="switchTab('bronya')">第二篇：布洛妮娅篇（约3.04万字）</button>
-            <button class="tab-btn active cyan" id="btn-seele" onclick="switchTab('seele')">第三篇：白希儿篇（全新上线，约2.4万字）</button>
+            <button class="tab-btn active red" id="btn-seele" onclick="switchTab('seele')">第三篇：白希儿篇（全新设定，约3.52万字）</button>
         </div>
 
         <div id="tab-mei" class="content-card">
@@ -152,30 +148,33 @@
         async function loadContent() {
             try {
                 const resMei = await fetch('/api/mei');
-                document.getElementById('text-mei').innerText = await resMei.text();
+                const textMei = await resMei.text();
+                document.getElementById('text-mei').innerText = textMei;
 
                 const resBronya = await fetch('/api/bronya');
-                document.getElementById('text-bronya').innerText = await resBronya.text();
+                const textBronya = await resBronya.text();
+                document.getElementById('text-bronya').innerText = textBronya;
 
                 const resSeele = await fetch('/api/seele');
-                document.getElementById('text-seele').innerText = await resSeele.text();
+                const textSeele = await resSeele.text();
+                document.getElementById('text-seele').innerText = textSeele;
             } catch (e) {
                 console.error(e);
             }
         }
 
         function switchTab(type) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'purple', 'blue', 'cyan'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active', 'blue', 'red'));
             document.querySelectorAll('.content-card').forEach(card => card.classList.remove('active'));
 
             if (type === 'mei') {
-                document.getElementById('btn-mei').classList.add('active', 'purple');
+                document.getElementById('btn-mei').classList.add('active');
                 document.getElementById('tab-mei').classList.add('active');
             } else if (type === 'bronya') {
                 document.getElementById('btn-bronya').classList.add('active', 'blue');
                 document.getElementById('tab-bronya').classList.add('active');
             } else if (type === 'seele') {
-                document.getElementById('btn-seele').classList.add('active', 'cyan');
+                document.getElementById('btn-seele').classList.add('active', 'red');
                 document.getElementById('tab-seele').classList.add('active');
             }
         }
